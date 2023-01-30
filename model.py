@@ -1,10 +1,15 @@
+import view
+
 journal = {}
 subject = ''
 path = ''
 # выбор класса для работы (файла)
 def set_class(class_path: str):
     global path
-    path = 'Class_Journal/' + class_path + '.txt'
+    path = class_path + '.txt'
+    # path = 'Class_Journal/' + class_path + '.txt'
+
+
 # выбор учебного предмета
 def set_subject(our_subject: str):
     global subject
@@ -25,6 +30,7 @@ def get_gournal():
 
 # табель успеваемости студента
 def student_mark(student: str, mark: int):
+    global journal
     marks = list(journal.get(student))
     marks.append(mark)
     journal[student] = marks
@@ -39,7 +45,7 @@ def save_file():
             new_file.append(sub.strip())
     item = []
     for student, marks in journal.items():
-        item.append(student + ':'.join(list(map(str, marks))))
+        item.append(student + ':' + ' '.join(list(map(str, marks))))
     item = subject + ';' + ', '.join(item)
     new_file.append(item)
     with open(path, 'w', encoding='UTF-8') as data:
